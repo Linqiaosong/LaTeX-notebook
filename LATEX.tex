@@ -1,0 +1,248 @@
+%导言区-----------------------
+
+\documentclass[UTF8,a4paper]{article}
+%声明基本文档类，{}中可选的有：article,book,report;ctex文档类有：ctexart,ctexbook,ctexrep与之对应;[]内可选选项有纸张大小(a4paper),纸张方向(landscape),单双面(oneside,twoside),字号大小(10pt,c5size(仅用于ctexart)),分栏(onecolumn,twocolumn),中文编码(GBK,UTF8)等
+
+\usepackage[left=1.7cm,right=1.7cm,top=2.1cm,bottom=1.9cm]{geometry}%设置页边距
+
+\usepackage{ctex}%使用包ctex，处理中文必备
+
+\usepackage{amsmath}%矩阵宏包
+
+\usepackage[super,sort&compress]{natbib}%bib引用宏包，数字上标，排序并且压缩
+\bibliographystyle{achemso}%ACS引用格式
+
+\usepackage{hyperref}%超链接宏包
+\hypersetup{hidelinks}%不显示超链接边框
+
+\usepackage{fancyhdr}%页眉页脚宏包
+\pagestyle{fancy}%fancy风格有页眉页脚，还有plain无页眉，页脚为居中页码，empty无页眉页脚，headings无页脚，页眉为章节名和页码
+\lhead{页眉左}	\chead{页眉中}\rhead{页眉右}\lfoot{页脚左}%还有页脚中和页脚右，\fancyhf{}可以清空页眉页脚，\thepage表示页码
+
+\usepackage{graphicx}%图像插入宏包
+\usepackage{colortbl}%表格颜色宏包
+\usepackage{xcolor}%颜色种类宏包
+\usepackage{multirow}%列格式宏包
+\usepackage{booktabs}%科技论文三线表宏包
+\usepackage{caption}%图表标题宏包
+\usepackage{authblk}%作者信息宏包
+\graphicspath{{D:/CS/LaTeX/document/figure/}}%设置图片的路径
+%\captionsetup{format=plain}把所有注释都设为plain格式
+
+\newcommand{\wuhao}{\zihao{5}}%定义命令\wuhao等价于\zihao{5}
+
+%重新定义数学公式编号计数器按照章节编号
+\makeatletter
+\@addtoreset{equation}{section}
+\makeatother
+\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+
+\title{Hello world!} %设置标题
+\author[*]{Lqs} %设置作者，右上角标*
+\affil[*]{单位1, \authorcr 作者1、3、4的邮箱} %标注作者*的信息，\authorcr表示换行
+\thanks{1234} %脚注
+\date{\today} %设置时间为今天
+%格式设置具体内容可查阅手册
+
+%文档区-----------------------
+\begin{document}%一个文档有且仅有一个文档开始与结束的声明，之间为正文部分
+    %基本操作----------------------------------------
+	\maketitle %正文显示标题，report类没有标题
+	Hello world! \\  %\\为换行符
+	\wuhao %这便是导言区定义的命令
+	你好，\qquad 世界！%\qquad表示横向跳2格
+		
+	
+	%空两行表示分段，或者用\par
+	特殊符号的输入：\# \$ \% \& \{ \} \_ \textbackslash \ldots \\
+	%---------------------------------------------------
+	
+	%数学公式-------------------------------------------
+	数学公式$F(x)=a_2x^2+a_1x+a_0+\log_2x$ \\%_表示下标,^表示上标,\log表示对数
+	单独成行的数学公式\[F(x)=a_2x^2+a_1x+a_0\] %也可以用$$F(x)=a_2x^2+a_1x+a_0\$$
+	带标号且单独成行的数学公式\ref{eq:lang}：
+	\begin{equation}
+	F(x)=a_2x^2+a_1x+a_0 \label{eq:lang}%用\lable{eq:label} 和\ref{eq:label}交叉引用
+	\end{equation}
+	
+	
+	矩阵模式：
+	\[%array为表格模式的矩阵
+    \begin{array}{c|c}
+	1 & 2 \\ 
+	\hline
+	3 & 4
+	\end{array}
+	\]
+	\[%matrix为矩阵环境下的矩阵
+	\begin{matrix}
+	1 & 2 \\ 
+	3 & 4
+	\end{matrix} 
+	\]
+	\[%pmatrix表示加小括号
+	\begin{pmatrix}
+	1 & 2 \\ 
+	3 & 4
+	\end{pmatrix} 
+	\]
+	\[%bmatrix表示加中括号
+	\begin{bmatrix}
+	1 & 2 \\ 
+	3 & 4
+	\end{bmatrix} 
+	\]
+	\[%vmatrix表示行列式
+	\begin{vmatrix}
+	1 & \dots & 3 \\ %\dots表示横向的...
+	\vdots & \ddots &   \\  %\vdots表示纵向的...，\ddots表示斜着的...
+	3 &   & 5
+	\end{vmatrix} 
+	\]
+	
+	
+	大型运算符运算：\\%不要使用$公式$的形式，以免间距错误
+	求和：\[\sum_{k=0}^{\infty}f_k(x)\]\\%\sum表示求和号，\infty表示∞
+	求积：\[\prod_{k=0}^{\infty}f_k(x)\]\\
+	求极限：\[\lim_{i\to\infty}a_i\]\\
+	求导数：\[\left.\frac{\mathrm{d}f(x)}{\mathrm{d}x}\right|_{x=0}\]\\ %\mathrm{d}表示微分运算符d，\left和\right要成对出现，但界定符不一定要对称，如\left.可以表示空的界定符，还有\left( 表示小括号，\left[ 表示中括号等
+	求偏导数：\[\left.\frac{\partial f(x,y)}{\partial x}\right|_{x=0}\]\\%\partial表示偏微分算符
+	耐普拉算子：\[\nabla F\] \[\nabla \cdot \vec{F}\] \[\nabla \times \mathbf{F}\]\\%\nabla表示耐普拉算子，\cdot表示点乘，\times表示叉乘，\vec{a}表示带箭头向量a，\mathbf{text}表示黑体向量F
+	积分运算符：\[\int_{1}^{2}F(x)\mathrm{d}x\] \[\iint_DF(x,y)\mathrm{d}\sigma\] \[\iiint_{\Omega}F(x,y,z)\mathrm{d}V\] \[\oint_{\Gamma}F(x,y,z)\mathrm{d}s\]
+	
+	
+	多行公式：
+	\begin{equation}
+	\left\{
+	\begin{array}{lr}
+	x=\dfrac{3\pi}{2}(1+2t)\cos(\dfrac{3\pi}{2}(1+2t)), &  \\
+	y=s, & 0\leq s\leq L,|t|\leq1.\\
+	z=\dfrac{3\pi}{2}(1+2t)\sin(\dfrac{3\pi}{2}(1+2t)), &  
+	\end{array}
+	\right.
+	\end{equation}
+	%----------------------------------------------------
+	
+	%字体设置--------------------------------------------
+    \selectfont
+	\linespread{1.5}%1.5倍行距，必须在\selectfont之后使用
+	字体族的设置：
+	罗马族\textrm{Roman}，无衬线\textsf{Roman}，打字机\texttt{Roman} \\
+	或者用全局设置：{\rmfamily Roman}，{\sffamily Roman}，{\ttfamily Roman} \\%全局作用范围在一个{}内，若没有{}则作用到文末或直到出现另一个同样的命令
+	字体形状的设置：直立\textup{Roman}，意大利体\textit{Roman}，斜体\textsl{Roman}，
+	小型大写\textsc{Roman},粗体\textbf{Roman}，下划线\underline{Roman} \\%同样有对应的全局设置\upshape,\itshape等与之对应
+	中文的字体：{\heiti 黑体}{\songti 宋体}等
+	字体大小的设置：\\%会自动改变行间距，默认为1.2倍
+	{\tiny Roman \\
+	\scriptsize Roman \\ 
+	\footnotesize Roman  \\
+	\small Roman  \\
+	\normalsize Roman  \\ %和导言区声明的基准大小一致，默认为10pt
+	\large Roman \\
+	\Large Roman \\
+	\LARGE Roman \\
+	\huge Roman \\
+	\Huge Roman \\}
+	中文字体大小的设置：\\ \zihao{5}五号 \\ \zihao{-5} 小五号\\
+	
+	%----------------------------------------------
+	
+	%文章结构--------------------------------------
+	\section{引言}
+	
+	\begin{equation}
+	F(x)=a_2x^2+a_1x+a_0 
+	\end{equation}
+	
+	\subsection{前导知识}
+	
+	\begin{equation}
+	F(x)=a_2x^2+a_1x+a_0 
+	\end{equation}
+	
+	\subsubsection{原子结构}%book类型没有
+	
+    \begin{equation}
+    F(x)=a_2x^2+a_1x+a_0 
+    \end{equation}
+		
+	这是一个脚注\footnote{脚注}。%只能用于正文部分
+	%book独有类型:
+	%\chapter{title} 章节
+	%\tableofcontents 生成目录
+
+	%多文件编译
+	%\input{tablepic.tex}会将该文件的代码直接复制到此处，注意导言区要分离
+	%----------------------------------------------
+	
+	%bibtex引用=-----------------------------------
+	这是一个引用。\cite{Abernethy2003,Arduengo1994, Arduengo1992, Coghill2006}
+	%----------------------------------------------
+	
+	%图片的插入-----------------------------------------
+	豆豆和蛋蛋由图\ref{fig:fw}表示
+	\begin{figure}[htp]%图片浮动体，htp表示允许出现在这里（h），页顶（t），独立一页（p），此外还可以有页底（b）
+		\centering%居中
+		\includegraphics[width=2cm]{fw.png} %插入图片，宽度为2cm
+		\caption[plain]{eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy eggy}  \label{fig:fw}%图注(plain表示段落格式，而不是居中)和交叉引用标签
+	\end{figure}
+	%---------------------------------------------------
+	
+	%表格的插入-----------------------------------------
+	看表\ref{tab:abcd}
+	\begin{table}[htp]%表格浮动体
+		\centering
+		\begin{tabular}{|c|c|c|c|c|}%插入表格和表格格式符{}，c表示居中对齐，l表示左对齐,r表示右对齐，p{2em}固定2em间距，*{3}{rrr}表示将rrr格式重复3次，@{x}表示用x代替列格式符，|表示列线，数学模式下可以使用array
+			\hline
+			\multirow{2}*{a} & b & c & d & f\\ %行线
+			\cline{2-5} & b & \multicolumn{3}{c|}{abc} \\ %列之间用&隔开, \cline{i-j}表示在i-j列加行线，\multicolumn{列数}{格式}{内容}表示列合并单元格
+			\hline \rowcolor{lightgray} %背景色亮灰色
+			c & d & c & d & c\\ 
+			\hline 
+		\end{tabular} 
+		\caption{abcd} \label{tab:abcd}%表注和交叉引用标签
+	\end{table}
+	%---------------------------------------------------
+	
+	%科技论文三线表-------------------------------------
+	科技论文三线表如表\ref{tab:aacd}所示：
+	\begin{table}[htbp]
+		\caption{个人信息表}
+		\centering 
+		\begin{tabular}{ccccc}
+			\toprule
+			序号 & 性别 & 年龄 & 身高 & 体重 \\
+			\midrule
+			1 & F & 14 & 156 & 42 \\
+			1 & F & 14 & 156 & 42 \\
+			1 & F & 14 & 156 & 42 \\
+			1 & F & 14 & 156 & 42 \\
+			1 & F & 14 & 156 & 42 \\
+			1 & F & 14 & 156 & 42 \\
+			1 & F & 14 & 156 & 42 \\
+			\bottomrule
+		\end{tabular}
+		\label{tab:aacd}
+	\end{table}
+	%---------------------------------------------------
+	
+	%罗列环境-------------------------------------------
+	\begin{itemize}%圆点编号
+		\item 第一条
+		\item 第二条
+		\item 第三条
+		\item 第四条
+		\item 第五条
+	\end{itemize}
+	
+	
+	\begin{enumerate}%数字编号
+		\item 第一条
+		\item 第二条
+		\item 第三条
+		\item 第四条
+		\item 第五条 
+	\end{enumerate}
+	%---------------------------------------------------
+	\bibliography{document}%数据库名，不带扩展名，放在插入参考文献表的位置
+\end{document}
